@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+}
+
+model Materials {
+  id         Int      @id @default(autoincrement())
+  code       String   @unique
+  name       String
+  category   String?
+  department String?
+  quantity   Int      @default(0)
+  unit       String?
+  price      Decimal? @db.Decimal(12, 2)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Folder {
+  id          Int      @id @default(autoincrement())
+  name        String
+  parentId    Int?
+  parent      Folder?  @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  children    Folder[] @relation("FolderHierarchy")
+  files       File[]
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("folders")
+}
+
+model File {
+  id          Int      @id @default(autoincrement())
+  filename    String
+  originalName String
+  mimeType    String
+  fileSize    Int
+  filePath    String
+  description String?
+  category    String?
+  folderId    Int?
+  folder      Folder?  @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  uploadedBy  Int
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("files")
+}
