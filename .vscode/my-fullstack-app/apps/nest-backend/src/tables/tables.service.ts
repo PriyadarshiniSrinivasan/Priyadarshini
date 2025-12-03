@@ -31,9 +31,10 @@ listTables() {
     
     // Get column information to properly type the values
     const columns = await this.getColumns(table)
-    const columnInfo = new Map(columns.map(c => [c.column_name, { type: c.data_type, nullable: c.is_nullable }]))
+    type ColumnInfo = { type: string; nullable: string }
+    const columnInfo = new Map<string, ColumnInfo>(columns.map(c => [c.column_name, { type: c.data_type, nullable: c.is_nullable }]))
     
-    console.log('Column info:', Array.from(columnInfo.entries()).map(([name, info]) => ({ name, ...info })))
+    console.log('Column info:', Array.from(columnInfo.entries()).map(([name, info]) => ({ name, type: info.type, nullable: info.nullable })))
     
     // Filter out empty values and only include columns that exist in the table
     const validEntries = Object.entries(values).filter(([key, value]) => {
@@ -68,7 +69,8 @@ listTables() {
     const cols = validEntries.map(([k]) => `"${k}"`).join(', ')
     const vals = validEntries.map(([k, v]) => {
       const value = v
-      const dataType = columnInfo.get(k)?.type
+      const colData = columnInfo.get(k)
+      const dataType = colData?.type
       
       // Handle null/empty values
       if (value === null || value === undefined || value === '') return null
