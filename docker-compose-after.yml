@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  postgres-after:
+    image: postgres:15
+    container_name: app-postgres-after
+    ports:
+      - "5434:5432"  # Different port!
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: StrongPassword!
+      POSTGRES_DB: appdb_after
+    volumes:
+      - pgdata-after:/var/lib/postgresql/data
+
+  nest-backend-after:
+    build: ./apps/nest-backend
+    container_name: app-backend-after
+    ports:
+      - "3003:3001"  # Different port!
+    depends_on:
+      - postgres-after
+    environment:
+      DATABASE_URL: postgresql://appuser:StrongPassword!@postgres-after:5432/appdb_after
+      JWT_SECRET: your-secret-key
+    volumes:
+      - uploads-data:/app/uploads
+
+  next-frontend-after:
+    build: ./apps/next-frontend/next-frontend-app
+    container_name: app-frontend-after
+    ports:
+      - "3200:3001"  # Different port!
+    depends_on:
+      - nest-backend-after
+    environment:
+      NEXT_PUBLIC_API_BASE: http://localhost:3003
+      INTERNAL_API_BASE: http://nest-backend-after:3001
+
+volumes:
+  pgdata-after:
+  uploads-data:
