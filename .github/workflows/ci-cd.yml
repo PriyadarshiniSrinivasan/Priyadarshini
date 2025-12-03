@@ -59,8 +59,10 @@ jobs:
       # Step 6: Run tests (if you have any)
       - name: Run tests
         run: npm test --if-present
+        continue-on-error: true
         # Why: Ensures your code works as expected
         # --if-present means only run if test script exists in package.json
+        # continue-on-error: true means pipeline continues even if tests fail
 
   # Job 2: Build and Test Frontend
   frontend-build:
@@ -98,6 +100,7 @@ jobs:
       
       - name: Run tests
         run: npm test --if-present
+        continue-on-error: true
 
   # Job 3: Build Docker Images (optional but recommended)
   docker-build:

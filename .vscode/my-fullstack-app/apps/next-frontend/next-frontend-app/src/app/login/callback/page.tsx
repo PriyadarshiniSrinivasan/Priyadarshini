@@ -1,11 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Box, CircularProgress, Typography, Alert, Container } from '@mui/material'
 
-export default function OktaCallbackPage() 
-{
+// This tells Next.js not to pre-render this page
+export const dynamic = 'force-dynamic'
+
+function CallbackContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [error, setError] = useState<string | null>(null)
@@ -174,5 +176,19 @@ export default function OktaCallbackPage()
         )}
       </Box>
     </Container>
+  )
+}
+
+export default function OktaCallbackPage() {
+  return (
+    <Suspense fallback={
+      <Container component="main" maxWidth="sm">
+        <Box sx={{ marginTop: 8, display: 'flex', justifyContent: 'center' }}>
+          <CircularProgress size={60} />
+        </Box>
+      </Container>
+    }>
+      <CallbackContent />
+    </Suspense>
   )
 }
