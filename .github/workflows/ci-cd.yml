@@ -22,7 +22,7 @@ jobs:
     # The directory where backend code lives
     defaults:
       run:
-        working-directory: ./apps/nest-backend
+        working-directory: ./.vscode/my-fullstack-app/apps/nest-backend
     
     steps:
       # Step 1: Download your code from GitHub
@@ -37,7 +37,7 @@ jobs:
           node-version: '20'
           # Why: Your backend needs Node.js to run
           cache: 'npm'
-          cache-dependency-path: apps/nest-backend/package-lock.json
+          cache-dependency-path: .vscode/my-fullstack-app/apps/nest-backend/package-lock.json
       
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -68,7 +68,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: ./apps/next-frontend/next-frontend-app
+        working-directory: ./.vscode/my-fullstack-app/apps/next-frontend/next-frontend-app
     
     steps:
       - name: Checkout code
@@ -79,7 +79,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: apps/next-frontend/next-frontend-app/package-lock.json
+          cache-dependency-path: .vscode/my-fullstack-app/apps/next-frontend/next-frontend-app/package-lock.json
       
       - name: Install dependencies
         run: npm ci
@@ -118,8 +118,8 @@ jobs:
       - name: Build backend Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./apps/nest-backend
-          file: ./apps/nest-backend/Dockerfile
+          context: ./.vscode/my-fullstack-app/apps/nest-backend
+          file: ./.vscode/my-fullstack-app/apps/nest-backend/Dockerfile
           push: false
           # push: false means we're only testing the build, not uploading to Docker Hub
           tags: my-backend:latest
@@ -131,8 +131,8 @@ jobs:
       - name: Build frontend Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./apps/next-frontend/next-frontend-app
-          file: ./apps/next-frontend/next-frontend-app/Dockerfile
+          context: ./.vscode/my-fullstack-app/apps/next-frontend/next-frontend-app
+          file: ./.vscode/my-fullstack-app/apps/next-frontend/next-frontend-app/Dockerfile
           push: false
           tags: my-frontend:latest
           cache-from: type=gha
