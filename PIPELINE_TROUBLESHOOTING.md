@@ -146,11 +146,18 @@ Edit `.github/workflows/ci-cd.yml`:
 **Error Message:**
 ```
 Error: Dependencies lock file is not found in /home/runner/work/...
+npm ERR! The package-lock.json lockfile is missing
 ```
 
-**Solution:** ✅ Already fixed! The cache paths are now correct:
-- Backend: `apps/nest-backend/package-lock.json`
-- Frontend: `apps/next-frontend/next-frontend-app/package-lock.json`
+**Root Cause:** The repository structure has files under `.vscode/my-fullstack-app/` prefix due to a merge conflict.
+
+**Solution:** ✅ Already fixed! The paths in the workflow have been updated to match the actual repository structure:
+- Backend: `.vscode/my-fullstack-app/apps/nest-backend/package-lock.json`
+- Frontend: `.vscode/my-fullstack-app/apps/next-frontend/next-frontend-app/package-lock.json`
+
+**How This Happened:** During `git pull --allow-unrelated-histories`, files from the remote were placed under the `.vscode/my-fullstack-app/` path, creating duplicate directory structure.
+
+**Latest Fix:** Commit `05bc16b` updated all paths in the CI/CD workflow to match the repository structure.
 
 ---
 
