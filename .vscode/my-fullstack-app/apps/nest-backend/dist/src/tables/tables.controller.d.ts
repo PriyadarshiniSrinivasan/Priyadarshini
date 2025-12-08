@@ -2,15 +2,9 @@ import { TablesService } from './tables.service';
 export declare class TablesController {
     private svc;
     constructor(svc: TablesService);
-    list(): import(".prisma/client").Prisma.PrismaPromise<{
-        table_name: string;
-    }[]>;
-    columns(table: string): import(".prisma/client").Prisma.PrismaPromise<{
-        column_name: string;
-        data_type: string;
-        is_nullable: "YES" | "NO";
-    }[]>;
-    rows(table: string): import(".prisma/client").Prisma.PrismaPromise<unknown>;
+    list(): any;
+    columns(table: string): any;
+    rows(table: string): any;
     insert(table: string, body: {
         values: Record<string, any>;
     }): Promise<{

@@ -12,116 +12,23 @@ export declare class FilesService {
         category?: string;
         folderId?: number | null;
         uploadedBy: number;
-    }): Promise<{
-        id: number;
-        createdAt: Date;
-        description: string | null;
-        category: string | null;
-        updatedAt: Date;
-        filename: string;
-        originalName: string;
-        mimeType: string;
-        fileSize: number;
-        filePath: string;
-        uploadedBy: number;
-        order: number;
-        folderId: number | null;
-    }>;
+    }): Promise<any>;
     getAllFiles(filters: {
         category?: string;
         search?: string;
         folderId?: number;
-    }): Promise<({
-        folder: {
-            id: number;
-            name: string;
-        };
-    } & {
-        id: number;
-        createdAt: Date;
-        description: string | null;
-        category: string | null;
-        updatedAt: Date;
-        filename: string;
-        originalName: string;
-        mimeType: string;
-        fileSize: number;
-        filePath: string;
-        uploadedBy: number;
-        order: number;
-        folderId: number | null;
-    })[]>;
-    getFileById(id: number): Promise<{
-        id: number;
-        createdAt: Date;
-        description: string | null;
-        category: string | null;
-        updatedAt: Date;
-        filename: string;
-        originalName: string;
-        mimeType: string;
-        fileSize: number;
-        filePath: string;
-        uploadedBy: number;
-        order: number;
-        folderId: number | null;
-    }>;
+    }): Promise<any>;
+    getFileById(id: number): Promise<any>;
     updateFile(id: number, updateData: {
         description?: string;
         category?: string;
         folderId?: number | null;
-    }): Promise<{
-        id: number;
-        createdAt: Date;
-        description: string | null;
-        category: string | null;
-        updatedAt: Date;
-        filename: string;
-        originalName: string;
-        mimeType: string;
-        fileSize: number;
-        filePath: string;
-        uploadedBy: number;
-        order: number;
-        folderId: number | null;
-    }>;
-    moveFile(id: number, targetFolderId: number | null, newOrder: number): Promise<{
-        id: number;
-        createdAt: Date;
-        description: string | null;
-        category: string | null;
-        updatedAt: Date;
-        filename: string;
-        originalName: string;
-        mimeType: string;
-        fileSize: number;
-        filePath: string;
-        uploadedBy: number;
-        order: number;
-        folderId: number | null;
-    }>;
-    deleteFile(id: number): Promise<{
-        id: number;
-        createdAt: Date;
-        description: string | null;
-        category: string | null;
-        updatedAt: Date;
-        filename: string;
-        originalName: string;
-        mimeType: string;
-        fileSize: number;
-        filePath: string;
-        uploadedBy: number;
-        order: number;
-        folderId: number | null;
-    }>;
+    }): Promise<any>;
+    moveFile(id: number, targetFolderId: number | null, newOrder: number): Promise<any>;
+    deleteFile(id: number): Promise<any>;
     getFileStats(): Promise<{
-        totalFiles: number;
-        totalSize: number;
-        categories: (import(".prisma/client").Prisma.PickEnumerable<import(".prisma/client").Prisma.FileGroupByOutputType, "category"[]> & {
-            _count: {
-                category: number;
-            };
-        })[];
+        totalFiles: any;
+        totalSize: any;
+        categories: any;
     }>;
 }

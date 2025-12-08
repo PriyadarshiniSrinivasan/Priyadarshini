@@ -12,26 +12,26 @@ export declare class AuthController {
     verifyOktaToken(verifyTokenDto: VerifyTokenDto): Promise<{
         success: boolean;
         user: {
-            id: number;
-            email: string;
-            name: string;
+            id: any;
+            email: any;
+            name: any;
         };
         message: string;
     }>;
     getProfile(authHeader: string): Promise<{
         success: boolean;
         user: {
-            id: number;
-            email: string;
-            name: string;
+            id: any;
+            email: any;
+            name: any;
         };
     }>;
     login(loginDto: LoginDto): Promise<{
         access_token: any;
         user: {
-            id: number;
-            email: string;
-            name: string;
+            id: any;
+            email: any;
+            name: any;
         };
     }>;
 }

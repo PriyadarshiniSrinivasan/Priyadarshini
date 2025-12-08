@@ -44,7 +44,7 @@ let TablesService = class TablesService {
         console.log('Values received:', values);
         const columns = await this.getColumns(table);
         const columnInfo = new Map(columns.map(c => [c.column_name, { type: c.data_type, nullable: c.is_nullable }]));
-        console.log('Column info:', Array.from(columnInfo.entries()).map(([name, info]) => ({ name, ...info })));
+        console.log('Column info:', Array.from(columnInfo.entries()).map(([name, info]) => ({ name, type: info.type, nullable: info.nullable })));
         const validEntries = Object.entries(values).filter(([key, value]) => {
             if (['id', 'createdAt', 'updatedAt'].includes(key)) {
                 console.log(`Skipping ${key}: auto-managed column`);
@@ -68,7 +68,8 @@ let TablesService = class TablesService {
         const cols = validEntries.map(([k]) => `"${k}"`).join(', ');
         const vals = validEntries.map(([k, v]) => {
             const value = v;
-            const dataType = columnInfo.get(k)?.type;
+            const colData = columnInfo.get(k);
+            const dataType = colData?.type;
             if (value === null || value === undefined || value === '')
                 return null;
             if (dataType === 'integer' || dataType === 'bigint' || dataType === 'smallint') {

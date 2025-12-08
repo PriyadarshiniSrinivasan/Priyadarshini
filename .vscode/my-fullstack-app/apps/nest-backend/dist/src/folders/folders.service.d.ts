@@ -4,136 +4,17 @@ export declare class FoldersService {
     constructor(prisma: PrismaService);
     getFolderTree(includeFiles?: boolean): Promise<any[]>;
     private buildTree;
-    getFolder(id: number): Promise<{
-        parent: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            updatedAt: Date;
-            order: number;
-            parentId: number | null;
-        };
-        children: ({
-            _count: {
-                children: number;
-                files: number;
-            };
-        } & {
-            id: number;
-            name: string;
-            createdAt: Date;
-            updatedAt: Date;
-            order: number;
-            parentId: number | null;
-        })[];
-        files: {
-            id: number;
-            createdAt: Date;
-            description: string | null;
-            category: string | null;
-            updatedAt: Date;
-            filename: string;
-            originalName: string;
-            mimeType: string;
-            fileSize: number;
-            filePath: string;
-            uploadedBy: number;
-            order: number;
-            folderId: number | null;
-        }[];
-    } & {
-        id: number;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        order: number;
-        parentId: number | null;
-    }>;
+    getFolder(id: number): Promise<any>;
     createFolder(data: {
         name: string;
         parentId?: number;
-    }): Promise<{
-        _count: {
-            children: number;
-            files: number;
-        };
-    } & {
-        id: number;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        order: number;
-        parentId: number | null;
-    }>;
+    }): Promise<any>;
     updateFolder(id: number, data: {
         name?: string;
         parentId?: number;
-    }): Promise<{
-        _count: {
-            children: number;
-            files: number;
-        };
-    } & {
-        id: number;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        order: number;
-        parentId: number | null;
-    }>;
-    deleteFolder(id: number): Promise<{
-        id: number;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        order: number;
-        parentId: number | null;
-    }>;
-    moveFolder(id: number, targetParentId: number | null, newOrder: number): Promise<{
-        parent: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            updatedAt: Date;
-            order: number;
-            parentId: number | null;
-        };
-        children: ({
-            _count: {
-                children: number;
-                files: number;
-            };
-        } & {
-            id: number;
-            name: string;
-            createdAt: Date;
-            updatedAt: Date;
-            order: number;
-            parentId: number | null;
-        })[];
-        files: {
-            id: number;
-            createdAt: Date;
-            description: string | null;
-            category: string | null;
-            updatedAt: Date;
-            filename: string;
-            originalName: string;
-            mimeType: string;
-            fileSize: number;
-            filePath: string;
-            uploadedBy: number;
-            order: number;
-            folderId: number | null;
-        }[];
-    } & {
-        id: number;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-        order: number;
-        parentId: number | null;
-    }>;
+    }): Promise<any>;
+    deleteFolder(id: number): Promise<any>;
+    moveFolder(id: number, targetParentId: number | null, newOrder: number): Promise<any>;
     private wouldCreateCircularReference;
     getFolderPath(id: number): Promise<{
         id: number;
